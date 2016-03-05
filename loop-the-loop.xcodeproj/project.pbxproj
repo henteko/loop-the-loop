@@ -17,6 +17,8 @@
 		ED8592B41C8B0EA000A54A00 /* ReverseVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592B31C8B0EA000A54A00 /* ReverseVideo.swift */; };
 		ED8592B61C8B11BA00A54A00 /* FileNameUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592B51C8B11BA00A54A00 /* FileNameUtil.swift */; };
 		ED8592B81C8B127A00A54A00 /* MultiVideoLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */; };
+		ED8592BC1C8B154500A54A00 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592BB1C8B154500A54A00 /* VideoCapture.swift */; };
+		ED8592BE1C8B17EC00A54A00 /* VideoLocalSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +34,8 @@
 		ED8592B31C8B0EA000A54A00 /* ReverseVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseVideo.swift; sourceTree = "<group>"; };
 		ED8592B51C8B11BA00A54A00 /* FileNameUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNameUtil.swift; sourceTree = "<group>"; };
 		ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiVideoLink.swift; sourceTree = "<group>"; };
+		ED8592BB1C8B154500A54A00 /* VideoCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
+		ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoLocalSave.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +81,8 @@
 				ED8592B31C8B0EA000A54A00 /* ReverseVideo.swift */,
 				ED8592B51C8B11BA00A54A00 /* FileNameUtil.swift */,
 				ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */,
+				ED8592BB1C8B154500A54A00 /* VideoCapture.swift */,
+				ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */,
 			);
 			path = "loop-the-loop";
 			sourceTree = "<group>";
@@ -154,8 +160,10 @@
 			files = (
 				ED8592B61C8B11BA00A54A00 /* FileNameUtil.swift in Sources */,
 				ED8592B81C8B127A00A54A00 /* MultiVideoLink.swift in Sources */,
+				ED8592BE1C8B17EC00A54A00 /* VideoLocalSave.swift in Sources */,
 				ED85929E1C8AC7D600A54A00 /* ViewController.swift in Sources */,
 				ED85929C1C8AC7D600A54A00 /* AppDelegate.swift in Sources */,
+				ED8592BC1C8B154500A54A00 /* VideoCapture.swift in Sources */,
 				ED8592B41C8B0EA000A54A00 /* ReverseVideo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
