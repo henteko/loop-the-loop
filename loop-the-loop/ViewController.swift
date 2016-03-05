@@ -116,16 +116,16 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     func captureOutput(captureOutput: AVCaptureFileOutput!, didStartRecordingToOutputFileAtURL fileURL: NSURL!, fromConnections connections: [AnyObject]!) {
     }
     
-    func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
+    func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL originalFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
         
         let movieFileName = "\(randomStringWithLength(20))_temp.mp4"
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let documentsDirectory = paths[0] as String
         let filePath : String? = "\(documentsDirectory)/\(movieFileName)_temp.mp4"
-        let finishOutputURL : NSURL = NSURL(fileURLWithPath: filePath!)
+        let reverseFileURL : NSURL = NSURL(fileURLWithPath: filePath!)
         
         // 動画からsamplesへ画像の変換
-        let asset: AVAsset = AVAsset(URL: outputFileURL)
+        let asset: AVAsset = AVAsset(URL: originalFileURL)
         var reader: AVAssetReader!
         do {
             reader = try AVAssetReader.init(asset: asset)
@@ -143,12 +143,10 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
             samples.append((sample as CMSampleBufferRef))
         }
         
-        print(samples.count)
-        
         // 書き込みの準備
         var writer: AVAssetWriter!
         do {
-            writer = try AVAssetWriter(URL: finishOutputURL, fileType: AVFileTypeMPEG4)
+            writer = try AVAssetWriter(URL: reverseFileURL, fileType: AVFileTypeMPEG4)
         } catch {
             writer = nil
         }
@@ -183,7 +181,36 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
         }
         writer.finishWritingWithCompletionHandler { () -> Void in
             // 書き込み終了
-            self.createAlbum(finishOutputURL)
+            
+            let videoURLs = [originalFileURL, reverseFileURL]
+            
+            let movieFileName = "\(self.randomStringWithLength(20))_temp.mp4"
+            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+            let documentsDirectory = paths[0] as String
+            let filePath : String? = "\(documentsDirectory)/\(movieFileName)_temp.mp4"
+            let finishFileURL : NSURL = NSURL(fileURLWithPath: filePath!)
+            
+            // originalとreverseを連結する
+            let composition = AVMutableComposition()
+            let compositionVideoTrack = composition.addMutableTrackWithMediaType(AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
+            var startTime = kCMTimeZero
+            for videoURL: NSURL in videoURLs {
+                let asset = AVAsset.init(URL: videoURL)
+                let videoTrack = asset.tracksWithMediaType(AVMediaTypeVideo).last
+                
+                do {
+                    try compositionVideoTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, asset.duration), ofTrack: videoTrack!, atTime: startTime)
+                } catch {
+                }
+                startTime = CMTimeAdd(startTime, asset.duration)
+            }
+            let exporter = AVAssetExportSession.init(asset: composition, presetName: AVAssetExportPresetHighestQuality)
+            exporter?.outputFileType = AVFileTypeQuickTimeMovie
+            exporter?.outputURL = finishFileURL
+            
+            exporter?.exportAsynchronouslyWithCompletionHandler({ () -> Void in
+                self.createAlbum(finishFileURL)
+            })
         }
     }
     
