@@ -118,10 +118,11 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
         
+        let movieFileName = "\(randomStringWithLength(20))_temp.mp4"
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let documentsDirectory = paths[0] as String
-        let filePath : String? = "\(documentsDirectory)/r_temp.mp4"
-        let finishOutputURL = NSURL(fileURLWithPath: filePath!)
+        let filePath : String? = "\(documentsDirectory)/\(movieFileName)_temp.mp4"
+        let finishOutputURL : NSURL = NSURL(fileURLWithPath: filePath!)
         
         // 動画からsamplesへ画像の変換
         let asset: AVAsset = AVAsset(URL: outputFileURL)
@@ -141,6 +142,8 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
         while let sample = readerOutput.copyNextSampleBuffer() {
             samples.append((sample as CMSampleBufferRef))
         }
+        
+        print(samples.count)
         
         // 書き込みの準備
         var writer: AVAssetWriter!
@@ -182,6 +185,22 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
             // 書き込み終了
             self.createAlbum(finishOutputURL)
         }
+    }
+    
+    //ランダム文字列生成
+    func randomStringWithLength (len : Int) -> NSString {
+        
+        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+        
+        let randomString : NSMutableString = NSMutableString(capacity: len)
+        
+        for (var i=0; i < len; i++){
+            let length = UInt32 (letters.length)
+            let rand = arc4random_uniform(length)
+            randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
+        }
+        
+        return randomString
     }
 }
 
