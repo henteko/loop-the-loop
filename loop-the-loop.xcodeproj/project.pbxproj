@@ -12,6 +12,8 @@
 		ED8592A11C8AC7D600A54A00 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED85929F1C8AC7D600A54A00 /* Main.storyboard */; };
 		ED8592A31C8AC7D600A54A00 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = ED8592A21C8AC7D600A54A00 /* Assets.xcassets */; };
 		ED8592A61C8AC7D600A54A00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8592A41C8AC7D600A54A00 /* LaunchScreen.storyboard */; };
+		ED8592AE1C8AC91B00A54A00 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8592AD1C8AC91B00A54A00 /* AVFoundation.framework */; };
+		ED8592B01C8AC92600A54A00 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8592AF1C8AC92600A54A00 /* AssetsLibrary.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -22,6 +24,8 @@
 		ED8592A21C8AC7D600A54A00 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		ED8592A51C8AC7D600A54A00 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		ED8592A71C8AC7D600A54A00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		ED8592AD1C8AC91B00A54A00 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		ED8592AF1C8AC92600A54A00 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -29,6 +33,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED8592B01C8AC92600A54A00 /* AssetsLibrary.framework in Frameworks */,
+				ED8592AE1C8AC91B00A54A00 /* AVFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -38,6 +44,8 @@
 		ED85928F1C8AC7D600A54A00 = {
 			isa = PBXGroup;
 			children = (
+				ED8592AF1C8AC92600A54A00 /* AssetsLibrary.framework */,
+				ED8592AD1C8AC91B00A54A00 /* AVFoundation.framework */,
 				ED85929A1C8AC7D600A54A00 /* loop-the-loop */,
 				ED8592991C8AC7D600A54A00 /* Products */,
 			);
