@@ -121,7 +121,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
         let movieFileName = "\(randomStringWithLength(20))_temp.mp4"
         let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
         let documentsDirectory = paths[0] as String
-        let filePath : String? = "\(documentsDirectory)/\(movieFileName)_temp.mp4"
+        let filePath : String? = "\(documentsDirectory)/\(movieFileName)"
         let reverseFileURL : NSURL = NSURL(fileURLWithPath: filePath!)
         
         // 動画からsamplesへ画像の変換
@@ -187,7 +187,7 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
             let movieFileName = "\(self.randomStringWithLength(20))_temp.mp4"
             let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
             let documentsDirectory = paths[0] as String
-            let filePath : String? = "\(documentsDirectory)/\(movieFileName)_temp.mp4"
+            let filePath : String? = "\(documentsDirectory)/\(movieFileName)"
             let finishFileURL : NSURL = NSURL(fileURLWithPath: filePath!)
             
             // originalとreverseを連結する
