@@ -117,7 +117,71 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     }
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL outputFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
-        createAlbum(outputFileURL)
+        
+        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
+        let documentsDirectory = paths[0] as String
+        let filePath : String? = "\(documentsDirectory)/r_temp.mp4"
+        let finishOutputURL = NSURL(fileURLWithPath: filePath!)
+        
+        // 動画からsamplesへ画像の変換
+        let asset: AVAsset = AVAsset(URL: outputFileURL)
+        var reader: AVAssetReader!
+        do {
+            reader = try AVAssetReader.init(asset: asset)
+        } catch {
+            reader = nil
+        }
+        let videoTrack: AVAssetTrack = asset.tracksWithMediaType(AVMediaTypeVideo).last!
+        let readerOutputSettings: [String : AnyObject] = [kCVPixelBufferPixelFormatTypeKey as String : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
+        let readerOutput: AVAssetReaderTrackOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: readerOutputSettings)
+        reader.addOutput(readerOutput)
+        reader.startReading()
+        
+        var samples: [CMSampleBufferRef] = [CMSampleBufferRef]()
+        while let sample = readerOutput.copyNextSampleBuffer() {
+            samples.append((sample as CMSampleBufferRef))
+        }
+        
+        // 書き込みの準備
+        var writer: AVAssetWriter!
+        do {
+            writer = try AVAssetWriter(URL: finishOutputURL, fileType: AVFileTypeMPEG4)
+        } catch {
+            writer = nil
+        }
+        let videoCompressionProps: [NSObject : AnyObject] = [
+            AVVideoAverageBitRateKey : videoTrack.estimatedDataRate
+        ]
+        
+        let writerOutputSettings: [String : AnyObject] = [
+            AVVideoCodecKey : AVVideoCodecH264,
+            AVVideoWidthKey : Int(videoTrack.naturalSize.width),
+            AVVideoHeightKey : Int(videoTrack.naturalSize.height),
+            AVVideoCompressionPropertiesKey : videoCompressionProps
+        ]
+        
+        let writerInput: AVAssetWriterInput = AVAssetWriterInput(mediaType: AVMediaTypeVideo, outputSettings: writerOutputSettings, sourceFormatHint: (videoTrack.formatDescriptions.last as! CMFormatDescriptionRef))
+        writerInput.expectsMediaDataInRealTime = false
+        
+        // なんか書き込みのやつ?
+        let pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
+        writer.addInput(writerInput)
+        writer.startWriting()
+        writer.startSessionAtSourceTime(CMSampleBufferGetPresentationTimeStamp((samples[0])))
+        
+        // いろいろ頑張る
+        for var i = 0; i < samples.count; i++ {
+            let presentationTime: CMTime = CMSampleBufferGetPresentationTimeStamp((samples[i]))
+            let imageBufferRef: CVPixelBufferRef = CMSampleBufferGetImageBuffer((samples[samples.count - i - 1]))!
+            while !writerInput.readyForMoreMediaData {
+                NSThread.sleepForTimeInterval(0.1)
+            }
+            pixelBufferAdaptor.appendPixelBuffer(imageBufferRef, withPresentationTime: presentationTime)
+        }
+        writer.finishWritingWithCompletionHandler { () -> Void in
+            // 書き込み終了
+            self.createAlbum(finishOutputURL)
+        }
     }
 }
 
