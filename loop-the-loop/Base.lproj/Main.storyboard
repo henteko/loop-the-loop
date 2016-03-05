@@ -17,12 +17,21 @@
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="qQh-bO-0PM" appends="YES" id="uBd-04-N7K"/>
+                        </connections>
                     </view>
                     <connections>
                         <outlet property="captureView" destination="8bC-Xf-vdC" id="pfm-Pi-hdW"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="qQh-bO-0PM">
+                    <connections>
+                        <action selector="longPressCaptureView:" destination="BYZ-38-t0r" id="SQa-Yz-WFa"/>
+                    </connections>
+                </pongPressGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="445" y="462"/>
         </scene>
