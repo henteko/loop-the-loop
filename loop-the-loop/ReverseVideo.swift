@@ -8,6 +8,7 @@
 
 import Foundation
 import AVFoundation
+import UIKit
 
 class ReverseVideo:NSObject {
     
@@ -62,6 +63,16 @@ class ReverseVideo:NSObject {
         
         let writerInput: AVAssetWriterInput = AVAssetWriterInput(mediaType: AVMediaTypeVideo, outputSettings: writerOutputSettings, sourceFormatHint: (videoTrack.formatDescriptions.last as! CMFormatDescriptionRef))
         writerInput.expectsMediaDataInRealTime = false
+        
+        // 逆再生を縦表示にするライフハック
+        // TODO: 辛いのでどうにかしたい
+        var transform: CGAffineTransform = CGAffineTransformIdentity
+        transform = CGAffineTransformTranslate(transform, videoTrack.naturalSize.width/1.78, 0)
+        transform.a = 0.0
+        transform.b = 1.0
+        transform.c = -1.0
+        transform.d = 0.0
+        writerInput.transform = transform
         
         // なんか書き込みのやつ?
         let pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
