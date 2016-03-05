@@ -16,9 +16,13 @@ class ViewController: UIViewController {
     var videoLayer: AVCaptureVideoPreviewLayer!
     let AlbumTitle = "LoopTheLoop"
     var videoCapture: VideoCapture!
+    var defaultTintColor: UIColor!
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        defaultTintColor = self.navigationController?.navigationBar.barTintColor
+        
         self.videoCapture = VideoCapture.init(completion: { (linkVideoFileURL) -> Void in
             let videoLocalSave = VideoLocalSave.init(albumName: self.AlbumTitle)
             videoLocalSave.save(linkVideoFileURL, completion: { (success, error) -> Void in
@@ -55,19 +59,20 @@ class ViewController: UIViewController {
         case .Began:
             // LongPress開始
             self.videoCapture.startRecording()
+            self.navigationController?.navigationBar.barTintColor = UIColor.redColor()
             break
         case .Cancelled:
             break
         case .Ended:
             // LongPress終了
             self.videoCapture.stopRecording()
+            self.navigationController?.navigationBar.barTintColor = self.defaultTintColor
             SVProgressHUD.showWithStatus("保存中")
             break
         case .Failed:
             break
         default:
             // LongPress中
-            print("default")
             break
         }
     }
