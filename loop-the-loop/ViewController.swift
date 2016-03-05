@@ -8,6 +8,7 @@
 
 import UIKit
 import AVFoundation
+import SVProgressHUD
 
 class ViewController: UIViewController {
 
@@ -22,9 +23,19 @@ class ViewController: UIViewController {
             let videoLocalSave = VideoLocalSave.init(albumName: self.AlbumTitle)
             videoLocalSave.save(linkVideoFileURL, completion: { (success, error) -> Void in
                 if (!success) {
+                    self.dispatch_async_global {
+                        self.dispatch_async_main {
+                            SVProgressHUD.showErrorWithStatus("動画の保存に失敗しました…")
+                        }
+                    }
                     print("Error")
                     print(error)
                 } else {
+                    self.dispatch_async_global {
+                        self.dispatch_async_main {
+                            SVProgressHUD.showSuccessWithStatus("動画を保存しました!")
+                        }
+                    }
                     print("Saved movie!")
                 }
             })
@@ -50,13 +61,23 @@ class ViewController: UIViewController {
         case .Ended:
             // LongPress終了
             self.videoCapture.stopRecording()
+            SVProgressHUD.showWithStatus("保存中")
             break
         case .Failed:
             break
         default:
             // LongPress中
+            print("default")
             break
         }
+    }
+    
+    func dispatch_async_main(block: () -> ()) {
+        dispatch_async(dispatch_get_main_queue(), block)
+    }
+    
+    func dispatch_async_global(block: () -> ()) {
+        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
     }
 }
 
