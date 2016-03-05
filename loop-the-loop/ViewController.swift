@@ -118,116 +118,15 @@ class ViewController: UIViewController, AVCaptureFileOutputRecordingDelegate {
     
     func captureOutput(captureOutput: AVCaptureFileOutput!, didFinishRecordingToOutputFileAtURL originalFileURL: NSURL!, fromConnections connections: [AnyObject]!, error: NSError!) {
         
-        let movieFileName = "\(randomStringWithLength(20))_temp.mp4"
-        let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-        let documentsDirectory = paths[0] as String
-        let filePath : String? = "\(documentsDirectory)/\(movieFileName)"
-        let reverseFileURL : NSURL = NSURL(fileURLWithPath: filePath!)
-        
-        // 動画からsamplesへ画像の変換
-        let asset: AVAsset = AVAsset(URL: originalFileURL)
-        var reader: AVAssetReader!
-        do {
-            reader = try AVAssetReader.init(asset: asset)
-        } catch {
-            reader = nil
-        }
-        let videoTrack: AVAssetTrack = asset.tracksWithMediaType(AVMediaTypeVideo).last!
-        let readerOutputSettings: [String : AnyObject] = [kCVPixelBufferPixelFormatTypeKey as String : Int(kCVPixelFormatType_420YpCbCr8BiPlanarFullRange)]
-        let readerOutput: AVAssetReaderTrackOutput = AVAssetReaderTrackOutput(track: videoTrack, outputSettings: readerOutputSettings)
-        reader.addOutput(readerOutput)
-        reader.startReading()
-        
-        var samples: [CMSampleBufferRef] = [CMSampleBufferRef]()
-        while let sample = readerOutput.copyNextSampleBuffer() {
-            samples.append((sample as CMSampleBufferRef))
-        }
-        
-        // 書き込みの準備
-        var writer: AVAssetWriter!
-        do {
-            writer = try AVAssetWriter(URL: reverseFileURL, fileType: AVFileTypeMPEG4)
-        } catch {
-            writer = nil
-        }
-        let videoCompressionProps: [NSObject : AnyObject] = [
-            AVVideoAverageBitRateKey : videoTrack.estimatedDataRate
-        ]
-        
-        let writerOutputSettings: [String : AnyObject] = [
-            AVVideoCodecKey : AVVideoCodecH264,
-            AVVideoWidthKey : Int(videoTrack.naturalSize.width),
-            AVVideoHeightKey : Int(videoTrack.naturalSize.height),
-            AVVideoCompressionPropertiesKey : videoCompressionProps
-        ]
-        
-        let writerInput: AVAssetWriterInput = AVAssetWriterInput(mediaType: AVMediaTypeVideo, outputSettings: writerOutputSettings, sourceFormatHint: (videoTrack.formatDescriptions.last as! CMFormatDescriptionRef))
-        writerInput.expectsMediaDataInRealTime = false
-        
-        // なんか書き込みのやつ?
-        let pixelBufferAdaptor: AVAssetWriterInputPixelBufferAdaptor = AVAssetWriterInputPixelBufferAdaptor(assetWriterInput: writerInput, sourcePixelBufferAttributes: nil)
-        writer.addInput(writerInput)
-        writer.startWriting()
-        writer.startSessionAtSourceTime(CMSampleBufferGetPresentationTimeStamp((samples[0])))
-        
-        // いろいろ頑張る
-        for var i = 0; i < samples.count; i++ {
-            let presentationTime: CMTime = CMSampleBufferGetPresentationTimeStamp((samples[i]))
-            let imageBufferRef: CVPixelBufferRef = CMSampleBufferGetImageBuffer((samples[samples.count - i - 1]))!
-            while !writerInput.readyForMoreMediaData {
-                NSThread.sleepForTimeInterval(0.1)
-            }
-            pixelBufferAdaptor.appendPixelBuffer(imageBufferRef, withPresentationTime: presentationTime)
-        }
-        writer.finishWritingWithCompletionHandler { () -> Void in
-            // 書き込み終了
+        let reverseVideo = ReverseVideo.init(originalVideoFileURL: originalFileURL)
+        reverseVideo.convert { (reverseVideoFileURL) -> Void in
+            let videoURLs = [originalFileURL, reverseVideoFileURL]
             
-            let videoURLs = [originalFileURL, reverseFileURL]
-            
-            let movieFileName = "\(self.randomStringWithLength(20))_temp.mp4"
-            let paths = NSSearchPathForDirectoriesInDomains(.DocumentDirectory, .UserDomainMask, true)
-            let documentsDirectory = paths[0] as String
-            let filePath : String? = "\(documentsDirectory)/\(movieFileName)"
-            let finishFileURL : NSURL = NSURL(fileURLWithPath: filePath!)
-            
-            // originalとreverseを連結する
-            let composition = AVMutableComposition()
-            let compositionVideoTrack = composition.addMutableTrackWithMediaType(AVMediaTypeVideo, preferredTrackID: kCMPersistentTrackID_Invalid)
-            var startTime = kCMTimeZero
-            for videoURL: NSURL in videoURLs {
-                let asset = AVAsset.init(URL: videoURL)
-                let videoTrack = asset.tracksWithMediaType(AVMediaTypeVideo).last
-                
-                do {
-                    try compositionVideoTrack.insertTimeRange(CMTimeRangeMake(kCMTimeZero, asset.duration), ofTrack: videoTrack!, atTime: startTime)
-                } catch {
-                }
-                startTime = CMTimeAdd(startTime, asset.duration)
-            }
-            let exporter = AVAssetExportSession.init(asset: composition, presetName: AVAssetExportPresetHighestQuality)
-            exporter?.outputFileType = AVFileTypeQuickTimeMovie
-            exporter?.outputURL = finishFileURL
-            
-            exporter?.exportAsynchronouslyWithCompletionHandler({ () -> Void in
-                self.createAlbum(finishFileURL)
+            let multiVideoLink = MultiVideoLink.init(videoURLs: videoURLs)
+            multiVideoLink.link({ (linkVideoFileURL) -> Void in
+                self.createAlbum(linkVideoFileURL)
             })
         }
-    }
-    
-    //ランダム文字列生成
-    func randomStringWithLength (len : Int) -> NSString {
-        
-        let letters : NSString = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
-        
-        let randomString : NSMutableString = NSMutableString(capacity: len)
-        
-        for (var i=0; i < len; i++){
-            let length = UInt32 (letters.length)
-            let rand = arc4random_uniform(length)
-            randomString.appendFormat("%C", letters.characterAtIndex(Int(rand)))
-        }
-        
-        return randomString
     }
 }
 

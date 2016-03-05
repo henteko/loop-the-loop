@@ -14,6 +14,9 @@
 		ED8592A61C8AC7D600A54A00 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = ED8592A41C8AC7D600A54A00 /* LaunchScreen.storyboard */; };
 		ED8592AE1C8AC91B00A54A00 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8592AD1C8AC91B00A54A00 /* AVFoundation.framework */; };
 		ED8592B01C8AC92600A54A00 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ED8592AF1C8AC92600A54A00 /* AssetsLibrary.framework */; };
+		ED8592B41C8B0EA000A54A00 /* ReverseVideo.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592B31C8B0EA000A54A00 /* ReverseVideo.swift */; };
+		ED8592B61C8B11BA00A54A00 /* FileNameUtil.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592B51C8B11BA00A54A00 /* FileNameUtil.swift */; };
+		ED8592B81C8B127A00A54A00 /* MultiVideoLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +29,9 @@
 		ED8592A71C8AC7D600A54A00 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		ED8592AD1C8AC91B00A54A00 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		ED8592AF1C8AC92600A54A00 /* AssetsLibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AssetsLibrary.framework; path = System/Library/Frameworks/AssetsLibrary.framework; sourceTree = SDKROOT; };
+		ED8592B31C8B0EA000A54A00 /* ReverseVideo.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReverseVideo.swift; sourceTree = "<group>"; };
+		ED8592B51C8B11BA00A54A00 /* FileNameUtil.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FileNameUtil.swift; sourceTree = "<group>"; };
+		ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiVideoLink.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,9 @@
 				ED8592A21C8AC7D600A54A00 /* Assets.xcassets */,
 				ED8592A41C8AC7D600A54A00 /* LaunchScreen.storyboard */,
 				ED8592A71C8AC7D600A54A00 /* Info.plist */,
+				ED8592B31C8B0EA000A54A00 /* ReverseVideo.swift */,
+				ED8592B51C8B11BA00A54A00 /* FileNameUtil.swift */,
+				ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */,
 			);
 			path = "loop-the-loop";
 			sourceTree = "<group>";
@@ -143,8 +152,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				ED8592B61C8B11BA00A54A00 /* FileNameUtil.swift in Sources */,
+				ED8592B81C8B127A00A54A00 /* MultiVideoLink.swift in Sources */,
 				ED85929E1C8AC7D600A54A00 /* ViewController.swift in Sources */,
 				ED85929C1C8AC7D600A54A00 /* AppDelegate.swift in Sources */,
+				ED8592B41C8B0EA000A54A00 /* ReverseVideo.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
