@@ -15,6 +15,8 @@ class PreviewAVPlayerViewController: AVPlayerViewController {
     let AlbumTitle = "LoopTheLoop"
     var linkVideoFileURL: NSURL!
     
+    static let videoLoopActionSelector:Selector = "videoLoopAction"
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -23,13 +25,15 @@ class PreviewAVPlayerViewController: AVPlayerViewController {
         
         self.player?.play()
         
-        let notificationCenter: NSNotificationCenter = NSNotificationCenter.defaultCenter()
-        notificationCenter.addObserverForName(AVPlayerItemDidPlayToEndTimeNotification, object: nil, queue: nil) { (notification: NSNotification) -> Void in
-            self.player?.currentItem?.seekToTime(kCMTimeZero)
-            self.player?.play()
-        }
+        NSNotificationCenter.defaultCenter().addObserver(self, selector: PreviewAVPlayerViewController.videoLoopActionSelector, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
+    
     deinit {
         NSNotificationCenter.defaultCenter().removeObserver(self)
+    }
+    
+    func videoLoopAction() {
+        self.player?.currentItem?.seekToTime(kCMTimeZero)
+        self.player?.play()
     }
 }

@@ -42,7 +42,7 @@ class ReverseVideo:NSObject {
         while let sample = readerOutput.copyNextSampleBuffer() {
             samples.append((sample as CMSampleBufferRef))
         }
-        
+
         // 書き込みの準備
         var writer: AVAssetWriter!
         do {
