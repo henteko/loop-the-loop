@@ -14,9 +14,9 @@ class ViewController: UIViewController {
 
     @IBOutlet var captureView: UIView!
     var videoLayer: AVCaptureVideoPreviewLayer!
-    let AlbumTitle = "LoopTheLoop"
     var videoCapture: VideoCapture!
     var defaultTintColor: UIColor!
+    var linkVideoFileURL: NSURL!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,25 +24,13 @@ class ViewController: UIViewController {
         defaultTintColor = self.navigationController?.navigationBar.barTintColor
         
         self.videoCapture = VideoCapture.init(completion: { (linkVideoFileURL) -> Void in
-            let videoLocalSave = VideoLocalSave.init(albumName: self.AlbumTitle)
-            videoLocalSave.save(linkVideoFileURL, completion: { (success, error) -> Void in
-                if (!success) {
-                    self.dispatch_async_global {
-                        self.dispatch_async_main {
-                            SVProgressHUD.showErrorWithStatus("動画の保存に失敗しました…")
-                        }
-                    }
-                    print("Error")
-                    print(error)
-                } else {
-                    self.dispatch_async_global {
-                        self.dispatch_async_main {
-                            SVProgressHUD.showSuccessWithStatus("動画を保存しました!")
-                        }
-                    }
-                    print("Saved movie!")
+            self.dispatch_async_global {
+                self.dispatch_async_main {
+                    SVProgressHUD.dismiss()
+                    self.linkVideoFileURL = linkVideoFileURL
+                    self.performSegueWithIdentifier("PreviewSegue", sender: nil)
                 }
-            })
+            }
         })
         
         // Preview
@@ -52,6 +40,13 @@ class ViewController: UIViewController {
         self.captureView.layer.addSublayer(videoLayer)
         
         self.videoCapture.start()
+    }
+    
+    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
+        if (segue.identifier == "PreviewSegue") {
+            let previewAVPlayerViewController: PreviewAVPlayerViewController = (segue.destinationViewController as? PreviewAVPlayerViewController)!
+            previewAVPlayerViewController.linkVideoFileURL = self.linkVideoFileURL
+        }
     }
     
     @IBAction func longPressCaptureView(sender: UILongPressGestureRecognizer!) {
@@ -67,7 +62,7 @@ class ViewController: UIViewController {
             // LongPress終了
             self.videoCapture.stopRecording()
             self.navigationController?.navigationBar.barTintColor = self.defaultTintColor
-            SVProgressHUD.showWithStatus("保存中")
+            SVProgressHUD.showWithStatus("動画作成中")
             break
         case .Failed:
             break

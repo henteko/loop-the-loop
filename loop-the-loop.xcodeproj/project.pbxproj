@@ -20,6 +20,8 @@
 		ED8592B81C8B127A00A54A00 /* MultiVideoLink.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */; };
 		ED8592BC1C8B154500A54A00 /* VideoCapture.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592BB1C8B154500A54A00 /* VideoCapture.swift */; };
 		ED8592BE1C8B17EC00A54A00 /* VideoLocalSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */; };
+		EDDEE16F1C8DC63D000743C0 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDEE16E1C8DC63D000743C0 /* AVKit.framework */; };
+		EDDEE1731C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE1721C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -40,6 +42,9 @@
 		ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MultiVideoLink.swift; sourceTree = "<group>"; };
 		ED8592BB1C8B154500A54A00 /* VideoCapture.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoCapture.swift; sourceTree = "<group>"; };
 		ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VideoLocalSave.swift; sourceTree = "<group>"; };
+		EDDEE16A1C8DC4BC000743C0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
+		EDDEE16E1C8DC63D000743C0 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		EDDEE1721C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewAVPlayerViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -47,6 +52,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EDDEE16F1C8DC63D000743C0 /* AVKit.framework in Frameworks */,
 				ED8592B01C8AC92600A54A00 /* AssetsLibrary.framework in Frameworks */,
 				ED8592AE1C8AC91B00A54A00 /* AVFoundation.framework in Frameworks */,
 				1AFF787346953C14C7A5D884 /* Pods_loop_the_loop.framework in Frameworks */,
@@ -68,6 +74,8 @@
 		9B405BDED2F92FC44257456E /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				EDDEE16E1C8DC63D000743C0 /* AVKit.framework */,
+				EDDEE16A1C8DC4BC000743C0 /* MediaPlayer.framework */,
 				38FFBD098BC929C674382CE9 /* Pods_loop_the_loop.framework */,
 			);
 			name = Frameworks;
@@ -107,6 +115,7 @@
 				ED8592B71C8B127A00A54A00 /* MultiVideoLink.swift */,
 				ED8592BB1C8B154500A54A00 /* VideoCapture.swift */,
 				ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */,
+				EDDEE1721C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift */,
 			);
 			path = "loop-the-loop";
 			sourceTree = "<group>";
@@ -236,6 +245,7 @@
 				ED8592B61C8B11BA00A54A00 /* FileNameUtil.swift in Sources */,
 				ED8592B81C8B127A00A54A00 /* MultiVideoLink.swift in Sources */,
 				ED8592BE1C8B17EC00A54A00 /* VideoLocalSave.swift in Sources */,
+				EDDEE1731C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift in Sources */,
 				ED85929E1C8AC7D600A54A00 /* ViewController.swift in Sources */,
 				ED85929C1C8AC7D600A54A00 /* AppDelegate.swift in Sources */,
 				ED8592BC1C8B154500A54A00 /* VideoCapture.swift in Sources */,

@@ -33,6 +33,7 @@
                     <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
                         <outlet property="captureView" destination="UgV-1Y-4tL" id="2tS-yB-l9k"/>
+                        <segue destination="XPP-8j-XyF" kind="show" identifier="PreviewSegue" id="YVT-l5-RZq"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
@@ -42,7 +43,24 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="534.5" y="1255.5"/>
+            <point key="canvasLocation" x="552.5" y="1255.5"/>
+        </scene>
+        <!--Preview-->
+        <scene sceneID="Bv5-1S-lOe">
+            <objects>
+                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="XPP-8j-XyF" customClass="PreviewAVPlayerViewController" customModule="loop_the_loop" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationItem key="navigationItem" title="Preview" id="tCY-m6-XnZ">
+                        <barButtonItem key="rightBarButtonItem" systemItem="save" id="adV-Rr-4KC">
+                            <connections>
+                                <action selector="localSave:" destination="XPP-8j-XyF" id="ztb-Mx-eKB"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
+                </avPlayerViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BZH-Ft-VLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="990.5" y="1255.5"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eAs-nb-Eli">
