@@ -44,8 +44,8 @@ class ViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "PreviewSegue") {
-            let previewAVPlayerViewController: PreviewAVPlayerViewController = (segue.destinationViewController as? PreviewAVPlayerViewController)!
-            previewAVPlayerViewController.linkVideoFileURL = self.linkVideoFileURL
+            let previewViewController: PreviewViewController = (segue.destinationViewController as? PreviewViewController)!
+            previewViewController.linkVideoFileURL = self.linkVideoFileURL
         }
     }
     

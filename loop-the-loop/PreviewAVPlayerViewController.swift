@@ -9,7 +9,6 @@
 import UIKit
 import AVKit
 import AVFoundation
-import SVProgressHUD
 
 class PreviewAVPlayerViewController: AVPlayerViewController {
     
@@ -20,38 +19,17 @@ class PreviewAVPlayerViewController: AVPlayerViewController {
         super.viewDidLoad()
         
         self.player = AVPlayer.init(URL: linkVideoFileURL)
-    }
-
-    @IBAction func localSave(sender: AnyObject) {
-        SVProgressHUD.showWithStatus("保存中")
+        self.showsPlaybackControls = false
         
-        let videoLocalSave = VideoLocalSave.init(albumName: self.AlbumTitle)
-        videoLocalSave.save(self.linkVideoFileURL, completion: { (success, error) -> Void in
-            if (!success) {
-                self.dispatch_async_global {
-                    self.dispatch_async_main {
-                        SVProgressHUD.showErrorWithStatus("動画の保存に失敗しました…")
-                    }
-                }
-                print("Error")
-                print(error)
-            } else {
-                self.dispatch_async_global {
-                    self.dispatch_async_main {
-                        SVProgressHUD.showSuccessWithStatus("動画を保存しました!")
-                    }
-                }
-                print("Saved movie!")
-            }
-        })
-
+        self.player?.play()
+        
+        let notificationCenter: NSNotificationCenter = NSNotificationCenter.defaultCenter()
+        notificationCenter.addObserverForName(AVPlayerItemDidPlayToEndTimeNotification, object: nil, queue: nil) { (notification: NSNotification) -> Void in
+            self.player?.currentItem?.seekToTime(kCMTimeZero)
+            self.player?.play()
+        }
     }
-    
-    func dispatch_async_main(block: () -> ()) {
-        dispatch_async(dispatch_get_main_queue(), block)
-    }
-    
-    func dispatch_async_global(block: () -> ()) {
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), block)
+    deinit {
+        NSNotificationCenter.defaultCenter().removeObserver(self)
     }
 }

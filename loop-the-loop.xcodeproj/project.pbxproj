@@ -22,6 +22,7 @@
 		ED8592BE1C8B17EC00A54A00 /* VideoLocalSave.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */; };
 		EDDEE16F1C8DC63D000743C0 /* AVKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = EDDEE16E1C8DC63D000743C0 /* AVKit.framework */; };
 		EDDEE1731C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE1721C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift */; };
+		EDDEE1751C8DD45B000743C0 /* PreviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = EDDEE1741C8DD45B000743C0 /* PreviewViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		EDDEE16A1C8DC4BC000743C0 /* MediaPlayer.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MediaPlayer.framework; path = System/Library/Frameworks/MediaPlayer.framework; sourceTree = SDKROOT; };
 		EDDEE16E1C8DC63D000743C0 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		EDDEE1721C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewAVPlayerViewController.swift; sourceTree = "<group>"; };
+		EDDEE1741C8DD45B000743C0 /* PreviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PreviewViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -116,6 +118,7 @@
 				ED8592BB1C8B154500A54A00 /* VideoCapture.swift */,
 				ED8592BD1C8B17EC00A54A00 /* VideoLocalSave.swift */,
 				EDDEE1721C8DC6B8000743C0 /* PreviewAVPlayerViewController.swift */,
+				EDDEE1741C8DD45B000743C0 /* PreviewViewController.swift */,
 			);
 			path = "loop-the-loop";
 			sourceTree = "<group>";
@@ -250,6 +253,7 @@
 				ED85929C1C8AC7D600A54A00 /* AppDelegate.swift in Sources */,
 				ED8592BC1C8B154500A54A00 /* VideoCapture.swift in Sources */,
 				ED8592B41C8B0EA000A54A00 /* ReverseVideo.swift in Sources */,
+				EDDEE1751C8DD45B000743C0 /* PreviewViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
