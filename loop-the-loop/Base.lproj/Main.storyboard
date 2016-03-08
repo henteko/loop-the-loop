@@ -3,6 +3,7 @@
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Loop The Loop-->
@@ -14,32 +15,24 @@
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <view contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="UgV-1Y-4tL">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
-                                <gestureRecognizers/>
-                                <connections>
-                                    <outletCollection property="gestureRecognizers" destination="rEh-Qw-Awz" appends="YES" id="Eef-DW-dG7"/>
-                                </connections>
-                            </view>
-                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="ew9-l6-yP3" appends="YES" id="yrI-PB-mMz"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Loop The Loop" id="xpG-Aj-pWv"/>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                     <connections>
-                        <outlet property="captureView" destination="UgV-1Y-4tL" id="2tS-yB-l9k"/>
+                        <outlet property="captureView" destination="8bC-Xf-vdC" id="wsE-pl-aiD"/>
                         <segue destination="PyG-FY-4JL" kind="show" identifier="PreviewSegue" id="sR9-rW-aqv"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
-                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="rEh-Qw-Awz">
+                <pongPressGestureRecognizer allowableMovement="10" minimumPressDuration="0.5" id="ew9-l6-yP3">
                     <connections>
-                        <action selector="longPressCaptureView:" destination="BYZ-38-t0r" id="Bxg-TL-KKD"/>
+                        <action selector="longPressCaptureView:" destination="BYZ-38-t0r" id="jYQ-qr-BOm"/>
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
@@ -48,12 +41,10 @@
         <!--AV Player View Controller-->
         <scene sceneID="Bv5-1S-lOe">
             <objects>
-                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="XPP-8j-XyF" customClass="PreviewAVPlayerViewController" customModule="loop_the_loop" customModuleProvider="target" sceneMemberID="viewController">
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
-                </avPlayerViewController>
+                <avPlayerViewController videoGravity="AVLayerVideoGravityResizeAspect" id="XPP-8j-XyF" customClass="PreviewAVPlayerViewController" customModule="loop_the_loop" customModuleProvider="target" sceneMemberID="viewController"/>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="BZH-Ft-VLX" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1501.5" y="1255.5"/>
+            <point key="canvasLocation" x="1914" y="1255"/>
         </scene>
         <!--Preview-->
         <scene sceneID="8hc-jX-KbH">
@@ -64,17 +55,23 @@
                         <viewControllerLayoutGuide type="bottom" id="WuZ-4U-X7A"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="dDl-b1-mUy">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <containerView opaque="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="A8T-OS-Qya">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A8T-OS-Qya">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                                 <connections>
                                     <segue destination="XPP-8j-XyF" kind="embed" identifier="playerViewControllerSegue" id="cua-e0-HFw"/>
                                 </connections>
                             </containerView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" secondItem="A8T-OS-Qya" secondAttribute="trailing" constant="-20" id="3Hu-HR-Kyf"/>
+                            <constraint firstItem="A8T-OS-Qya" firstAttribute="leading" secondItem="dDl-b1-mUy" secondAttribute="leadingMargin" constant="-20" id="MU3-7D-Y2w"/>
+                            <constraint firstItem="WuZ-4U-X7A" firstAttribute="top" secondItem="A8T-OS-Qya" secondAttribute="bottom" id="TKb-mt-CCF"/>
+                            <constraint firstItem="A8T-OS-Qya" firstAttribute="top" secondItem="dDl-b1-mUy" secondAttribute="topMargin" id="ou8-cJ-efI"/>
+                        </constraints>
                     </view>
                     <navigationItem key="navigationItem" title="Preview" id="MxB-g0-p4t">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="grp-Ex-UPG">
@@ -83,11 +80,10 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
-                    <simulatedScreenMetrics key="simulatedDestinationMetrics" type="retina47"/>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4N-ta-zRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1025.5" y="1255.5"/>
+            <point key="canvasLocation" x="1249" y="1255"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="eAs-nb-Eli">
