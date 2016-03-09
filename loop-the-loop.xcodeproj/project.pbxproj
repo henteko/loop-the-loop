@@ -370,7 +370,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "loop-the-loop/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.henteko07.loop-the-loop";
+				PRODUCT_BUNDLE_IDENTIFIER = com.henteko07.looper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
@@ -385,7 +385,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = "loop-the-loop/Info.plist";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = "com.henteko07.loop-the-loop";
+				PRODUCT_BUNDLE_IDENTIFIER = com.henteko07.looper;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 1;
 			};
