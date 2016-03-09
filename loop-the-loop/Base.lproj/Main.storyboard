@@ -6,7 +6,7 @@
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
-        <!--Loop The Loop-->
+        <!--Looper-->
         <scene sceneID="tne-QT-ifu">
             <objects>
                 <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="loop_the_loop" customModuleProvider="target" sceneMemberID="viewController">
@@ -23,7 +23,7 @@
                             <outletCollection property="gestureRecognizers" destination="ew9-l6-yP3" appends="YES" id="yrI-PB-mMz"/>
                         </connections>
                     </view>
-                    <navigationItem key="navigationItem" title="Loop The Loop" id="xpG-Aj-pWv"/>
+                    <navigationItem key="navigationItem" title="Looper" id="xpG-Aj-pWv"/>
                     <connections>
                         <outlet property="captureView" destination="8bC-Xf-vdC" id="wsE-pl-aiD"/>
                         <segue destination="PyG-FY-4JL" kind="show" identifier="PreviewSegue" id="sR9-rW-aqv"/>

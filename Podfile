@@ -5,5 +5,6 @@ use_frameworks!
 
 target 'loop-the-loop' do
   pod 'SVProgressHUD'
+  pod 'ChameleonFramework/Swift'
 end
 
