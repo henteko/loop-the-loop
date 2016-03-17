@@ -15,6 +15,8 @@ class PreviewViewController: UIViewController {
     
     let AlbumTitle = "LoopTheLoop"
     var linkVideoFileURL: NSURL!
+    var previewAVPlayerViewController: PreviewAVPlayerViewController!
+    @IBOutlet weak var rateLabel: UILabel!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -22,7 +24,7 @@ class PreviewViewController: UIViewController {
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "playerViewControllerSegue") {
-            let previewAVPlayerViewController: PreviewAVPlayerViewController = (segue.destinationViewController as? PreviewAVPlayerViewController)!
+            previewAVPlayerViewController = (segue.destinationViewController as? PreviewAVPlayerViewController)!
             previewAVPlayerViewController.linkVideoFileURL = self.linkVideoFileURL
         }
     }
@@ -50,6 +52,26 @@ class PreviewViewController: UIViewController {
             }
         })
         
+    }
+    
+    @IBAction func swipeRightAction(gestureRecognizer: UIGestureRecognizer!) {
+        showAnimationLabel(String(previewAVPlayerViewController.speedUp()))
+    }
+    
+    @IBAction func swipeLeftAction(sender: AnyObject) {
+        showAnimationLabel(String(previewAVPlayerViewController.speedDown()))
+    }
+    
+    func showAnimationLabel(text: String) {
+        rateLabel.text = text
+        UIView.animateWithDuration(1.0, animations: {() -> Void in
+            self.rateLabel.alpha = 1.0
+            }, completion: {(Bool) -> Void in
+                UIView.animateWithDuration(1.0, animations: {() -> Void in
+                    self.rateLabel.alpha = 0.0
+                    }, completion: {(Bool) -> Void in
+                })
+        })
     }
     
     func dispatch_async_main(block: () -> ()) {

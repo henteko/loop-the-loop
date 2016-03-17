@@ -64,14 +64,31 @@
                                     <segue destination="XPP-8j-XyF" kind="embed" identifier="playerViewControllerSegue" id="cua-e0-HFw"/>
                                 </connections>
                             </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" alpha="0.0" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="0.4" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2af-43-eka">
+                                <rect key="frame" x="150" y="190" width="300" height="220"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="300" id="9F5-Sd-Oar"/>
+                                    <constraint firstAttribute="height" constant="220" id="TyC-Ug-2MR"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="100"/>
+                                <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <gestureRecognizers/>
                         <constraints>
                             <constraint firstAttribute="trailingMargin" secondItem="A8T-OS-Qya" secondAttribute="trailing" constant="-20" id="3Hu-HR-Kyf"/>
                             <constraint firstItem="A8T-OS-Qya" firstAttribute="leading" secondItem="dDl-b1-mUy" secondAttribute="leadingMargin" constant="-20" id="MU3-7D-Y2w"/>
                             <constraint firstItem="WuZ-4U-X7A" firstAttribute="top" secondItem="A8T-OS-Qya" secondAttribute="bottom" id="TKb-mt-CCF"/>
                             <constraint firstItem="A8T-OS-Qya" firstAttribute="top" secondItem="dDl-b1-mUy" secondAttribute="topMargin" id="ou8-cJ-efI"/>
+                            <constraint firstItem="2af-43-eka" firstAttribute="centerX" secondItem="dDl-b1-mUy" secondAttribute="centerX" id="qpn-ni-0nb"/>
+                            <constraint firstItem="2af-43-eka" firstAttribute="centerY" secondItem="dDl-b1-mUy" secondAttribute="centerY" id="xJW-rM-FpQ"/>
                         </constraints>
+                        <connections>
+                            <outletCollection property="gestureRecognizers" destination="Q7f-pf-MZC" appends="YES" id="iLO-CU-lyt"/>
+                            <outletCollection property="gestureRecognizers" destination="nZi-Rw-bt7" appends="YES" id="KPa-nT-Clq"/>
+                        </connections>
                     </view>
                     <navigationItem key="navigationItem" title="Preview" id="MxB-g0-p4t">
                         <barButtonItem key="rightBarButtonItem" systemItem="save" id="grp-Ex-UPG">
@@ -80,8 +97,21 @@
                             </connections>
                         </barButtonItem>
                     </navigationItem>
+                    <connections>
+                        <outlet property="rateLabel" destination="2af-43-eka" id="uJY-b2-U0V"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4N-ta-zRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <swipeGestureRecognizer direction="right" id="Q7f-pf-MZC" userLabel="Right Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeRightAction:" destination="PyG-FY-4JL" id="cJU-5R-nuI"/>
+                    </connections>
+                </swipeGestureRecognizer>
+                <swipeGestureRecognizer direction="left" id="nZi-Rw-bt7" userLabel="Left Swipe Gesture Recognizer">
+                    <connections>
+                        <action selector="swipeLeftAction:" destination="PyG-FY-4JL" id="AuJ-SW-qs8"/>
+                    </connections>
+                </swipeGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="1249" y="1255"/>
         </scene>

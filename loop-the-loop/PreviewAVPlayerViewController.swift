@@ -14,6 +14,8 @@ class PreviewAVPlayerViewController: AVPlayerViewController {
     
     let AlbumTitle = "LoopTheLoop"
     var linkVideoFileURL: NSURL!
+    var currentRate: Float = 1.0
+    let maxRate: Float = 1.9
     
     static let videoLoopActionSelector:Selector = "videoLoopAction"
     
@@ -24,6 +26,7 @@ class PreviewAVPlayerViewController: AVPlayerViewController {
         self.showsPlaybackControls = false
         
         self.player?.play()
+        self.player!.rate = currentRate
         
         NSNotificationCenter.defaultCenter().addObserver(self, selector: PreviewAVPlayerViewController.videoLoopActionSelector, name: AVPlayerItemDidPlayToEndTimeNotification, object: nil)
     }
@@ -35,5 +38,31 @@ class PreviewAVPlayerViewController: AVPlayerViewController {
     func videoLoopAction() {
         self.player?.currentItem?.seekToTime(kCMTimeZero)
         self.player?.play()
+        self.player!.rate = currentRate
+    }
+    
+    func speedUp() -> Float {
+        if currentRate >= maxRate {
+            return currentRate
+        }
+        
+        currentRate += 0.1
+        self.player!.rate = currentRate
+        
+        return currentRate
+    }
+    
+    func speedDown() -> Float {
+        if currentRate <= 0.1 {
+            return currentRate
+        }
+        
+        currentRate -= 0.1
+        if currentRate < 0.1 {
+            currentRate = 0.1
+        }
+        self.player!.rate = currentRate
+        
+        return currentRate
     }
 }
