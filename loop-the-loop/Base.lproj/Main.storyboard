@@ -102,14 +102,14 @@
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="j4N-ta-zRv" userLabel="First Responder" sceneMemberID="firstResponder"/>
-                <swipeGestureRecognizer direction="right" id="Q7f-pf-MZC" userLabel="Right Swipe Gesture Recognizer">
+                <swipeGestureRecognizer direction="up" id="Q7f-pf-MZC" userLabel="Up Swipe Gesture Recognizer">
                     <connections>
-                        <action selector="swipeRightAction:" destination="PyG-FY-4JL" id="cJU-5R-nuI"/>
+                        <action selector="swipeUpAction:" destination="PyG-FY-4JL" id="rrV-dN-j0X"/>
                     </connections>
                 </swipeGestureRecognizer>
-                <swipeGestureRecognizer direction="left" id="nZi-Rw-bt7" userLabel="Left Swipe Gesture Recognizer">
+                <swipeGestureRecognizer direction="down" id="nZi-Rw-bt7" userLabel="Down Swipe Gesture Recognizer">
                     <connections>
-                        <action selector="swipeLeftAction:" destination="PyG-FY-4JL" id="AuJ-SW-qs8"/>
+                        <action selector="swipeDownAction:" destination="PyG-FY-4JL" id="f6j-MG-KDP"/>
                     </connections>
                 </swipeGestureRecognizer>
             </objects>

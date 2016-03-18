@@ -54,20 +54,21 @@ class PreviewViewController: UIViewController {
         
     }
     
-    @IBAction func swipeRightAction(gestureRecognizer: UIGestureRecognizer!) {
+    @IBAction func swipeUpAction(gestureRecognizer: UIGestureRecognizer!) {
         showAnimationLabel(String(previewAVPlayerViewController.speedUp()))
     }
     
-    @IBAction func swipeLeftAction(sender: AnyObject) {
+    @IBAction func swipeDownAction(sender: AnyObject) {
         showAnimationLabel(String(previewAVPlayerViewController.speedDown()))
     }
     
     func showAnimationLabel(text: String) {
+        let animationDuration: Double = 0.5
         rateLabel.text = text
-        UIView.animateWithDuration(1.0, animations: {() -> Void in
+        UIView.animateWithDuration(animationDuration, animations: {() -> Void in
             self.rateLabel.alpha = 1.0
             }, completion: {(Bool) -> Void in
-                UIView.animateWithDuration(1.0, animations: {() -> Void in
+                UIView.animateWithDuration(animationDuration, animations: {() -> Void in
                     self.rateLabel.alpha = 0.0
                     }, completion: {(Bool) -> Void in
                 })
