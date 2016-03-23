@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TFq-mE-8BU">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="TFq-mE-8BU">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
@@ -17,8 +17,25 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="LZF-T4-a5C">
+                                <rect key="frame" x="228" y="285" width="145" height="30"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="30" id="Aap-id-12N"/>
+                                    <constraint firstAttribute="width" constant="145" id="B1k-aO-Uj6"/>
+                                </constraints>
+                                <state key="normal" title="Permmision Request"/>
+                                <connections>
+                                    <action selector="permissionRequestAction:" destination="BYZ-38-t0r" eventType="touchUpInside" id="dnB-11-V2l"/>
+                                </connections>
+                            </button>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <gestureRecognizers/>
+                        <constraints>
+                            <constraint firstItem="LZF-T4-a5C" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="HHl-kM-ZYh"/>
+                            <constraint firstItem="LZF-T4-a5C" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="PgL-CW-ucv"/>
+                        </constraints>
                         <connections>
                             <outletCollection property="gestureRecognizers" destination="ew9-l6-yP3" appends="YES" id="yrI-PB-mMz"/>
                         </connections>
@@ -26,6 +43,7 @@
                     <navigationItem key="navigationItem" title="Looper" id="xpG-Aj-pWv"/>
                     <connections>
                         <outlet property="captureView" destination="8bC-Xf-vdC" id="wsE-pl-aiD"/>
+                        <outlet property="permissionRequestButton" destination="LZF-T4-a5C" id="T5X-yi-moX"/>
                         <segue destination="PyG-FY-4JL" kind="show" identifier="PreviewSegue" id="sR9-rW-aqv"/>
                     </connections>
                 </viewController>
@@ -36,7 +54,7 @@
                     </connections>
                 </pongPressGestureRecognizer>
             </objects>
-            <point key="canvasLocation" x="552.5" y="1255.5"/>
+            <point key="canvasLocation" x="552" y="1255"/>
         </scene>
         <!--AV Player View Controller-->
         <scene sceneID="Bv5-1S-lOe">

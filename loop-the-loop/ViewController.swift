@@ -9,18 +9,37 @@
 import UIKit
 import AVFoundation
 import SVProgressHUD
+import PermissionScope
 
 class ViewController: UIViewController {
 
     @IBOutlet var captureView: UIView!
+    @IBOutlet weak var permissionRequestButton: UIButton!
     var videoLayer: AVCaptureVideoPreviewLayer!
     var videoCapture: VideoCapture!
     var defaultTintColor: UIColor!
     var linkVideoFileURL: NSURL!
+    let pscope = PermissionScope()
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        pscope.viewControllerForAlerts = self
+        pscope.onAuthChange = { [unowned self] (finished, results) in
+            if results[0].status == .Authorized {
+                self.permissionRequestButton.hidden = true
+                self.setUp()
+            }
+        }
+    }
+    
+    override func viewWillAppear(animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        permissionRequest()
+    }
+    
+    func setUp() {
         defaultTintColor = self.navigationController?.navigationBar.barTintColor
         
         self.videoCapture = VideoCapture.init(completion: { (linkVideoFileURL) -> Void in
@@ -42,6 +61,22 @@ class ViewController: UIViewController {
         self.videoCapture.start()
     }
     
+    @IBAction func permissionRequestAction(sender: AnyObject) {
+        permissionRequest()
+    }
+    
+    func permissionRequest() {
+        switch pscope.statusCamera() {
+        case .Authorized:
+            setUp()
+            break
+        case .Unknown, .Unauthorized, .Disabled:
+            pscope.requestCamera()
+            self.permissionRequestButton.hidden = false
+            break
+        }
+    }
+    
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
         if (segue.identifier == "PreviewSegue") {
             let previewViewController: PreviewViewController = (segue.destinationViewController as? PreviewViewController)!
@@ -50,6 +85,14 @@ class ViewController: UIViewController {
     }
     
     @IBAction func longPressCaptureView(sender: UILongPressGestureRecognizer!) {
+        let pscope = PermissionScope()
+        switch pscope.statusCamera() {
+        case .Authorized:
+            break
+        case .Unknown, .Unauthorized, .Disabled:
+            return // 許可がないので無視
+        }
+        
         switch sender.state {
         case .Began:
             // LongPress開始
