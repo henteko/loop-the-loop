@@ -10,6 +10,7 @@ import UIKit
 import AVKit
 import AVFoundation
 import SVProgressHUD
+import PermissionScope
 
 class PreviewViewController: UIViewController {
     
@@ -17,9 +18,17 @@ class PreviewViewController: UIViewController {
     var linkVideoFileURL: NSURL!
     var previewAVPlayerViewController: PreviewAVPlayerViewController!
     @IBOutlet weak var rateLabel: UILabel!
+    let pscope = PermissionScope()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        pscope.viewControllerForAlerts = self
+        pscope.onAuthChange = { [unowned self] (finished, results) in
+            if results[0].status == .Authorized {
+                self.save()
+            }
+        }
     }
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject!) {
@@ -30,6 +39,10 @@ class PreviewViewController: UIViewController {
     }
     
     @IBAction func localSave(sender: AnyObject) {
+        permissionRequest()
+    }
+    
+    func save() {
         SVProgressHUD.showWithStatus("保存中")
         
         let videoLocalSave = VideoLocalSave.init(albumName: self.AlbumTitle)
@@ -51,7 +64,17 @@ class PreviewViewController: UIViewController {
                 print("Saved movie!")
             }
         })
-        
+    }
+    
+    func permissionRequest() {
+        switch pscope.statusPhotos() {
+        case .Authorized:
+            save()
+            break
+        case .Unknown, .Unauthorized, .Disabled:
+            pscope.requestPhotos()
+            break
+        }
     }
     
     @IBAction func swipeUpAction(gestureRecognizer: UIGestureRecognizer!) {
